@@ -346,11 +346,106 @@
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .shop-container {
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
+  .category-header {
+    margin-bottom: 40px;
+  }
+
+  .category-pill {
+    padding: 8px 18px;
+    font-size: .85rem;
+  }
 }
 
 @media (max-width: 480px) {
   .categories-grid {
     grid-template-columns: 1fr;
+  }
+
+  .shop-container {
+    padding-top: 90px;
+    padding-bottom: 60px;
+  }
+
+  .category-header {
+    margin-bottom: 32px;
+  }
+
+  .category-pills {
+    gap: 8px;
+  }
+
+  .category-pill {
+    padding: 8px 14px;
+    font-size: .8rem;
+  }
+
+  .product-card {
+    gap: 12px;
+  }
+
+  .product-title {
+    font-size: .9rem;
+  }
+
+  .product-price {
+    font-size: .85rem;
+  }
+
+  .shop-toolbar {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .toolbar-label {
+    font-size: .85rem;
+  }
+
+  .toolbar-select {
+    min-width: 100%;
+    padding: 8px 12px;
+    font-size: .85rem;
+  }
+
+  .category-tile-title {
+    font-size: 1.2rem;
+  }
+
+  .category-tile-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .shop-container {
+    padding-top: 80px;
+  }
+
+  .product-grid {
+    gap: 10px;
+  }
+
+  .product-title {
+    font-size: .85rem;
+  }
+
+  .product-price {
+    font-size: .8rem;
+  }
+
+  .category-pill {
+    padding: 6px 12px;
+    font-size: .75rem;
+  }
+
+  .pagination-btn {
+    width: 36px;
+    height: 36px;
   }
 }
 

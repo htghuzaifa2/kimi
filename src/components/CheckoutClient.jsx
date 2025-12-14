@@ -32,33 +32,35 @@ const CheckoutClient = () => {
         const total = subtotal + codFee;
 
         // Construct WhatsApp Message
-        let message = `Hello KIMI, I'd like to place an order for the following items:\\n\\n`;
-        message += `ORDER SUMMARY\\n--------------------\\n`;
+        let message = `*Order from kimi.com.pk*\n\n`;
+        message += `*ORDER SUMMARY*\n--------------------\n`;
 
         cart.forEach(item => {
-            message += `${item.name} (${item.color}, ${item.size}) (ID: ${item.id})\\n`;
-            message += `  - Qty: ${item.quantity}\\n`;
-            message += `  - Price: PKR ${item.price}\\n`;
+            const variantInfo = (item.size || item.color) ? ` (${item.size || ''}/${item.color || ''})` : '';
+            message += `[ID: ${item.id}] ${item.name}${variantInfo}\n`;
+            message += `Qty: ${item.quantity} - Price: PKR ${item.price}\n\n`;
         });
 
-        message += `--------------------\\n`;
-        message += `Subtotal: PKR ${subtotal}\\n`;
-        message += `Shipping: PKR 0\\n`;
+        message += `--------------------\n`;
+        message += `Subtotal: PKR ${subtotal}\n`;
+        message += `Shipping: Free\n`;
         if (formData.paymentMethod === 'cod') {
-            message += `COD Fee: PKR ${codFee}\\n`;
+            message += `COD Fee: PKR ${codFee}\n`;
         }
-        message += `\\nTotal Amount: PKR ${total}\\n`;
-        message += `--------------------\\n`;
-        message += `CUSTOMER DETAILS\\n`;
-        message += `- Name: ${formData.name}\\n`;
-        message += `- Phone: ${formData.phone}\\n`;
-        message += `- Email: ${formData.email}\\n`;
-        message += `- Address: ${formData.address}, ${formData.city}, ${formData.province}\\n`;
-        message += `- Payment: ${formData.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Advance Payment'}\\n`;
+        message += `*Total Amount: PKR ${total}*\n`;
+        message += `--------------------\n`;
+        message += `*CUSTOMER DETAILS*\n`;
+        message += `- Name: ${formData.name}\n`;
+        if (formData.phone) message += `- Phone: ${formData.phone}\n`;
+        if (formData.email) message += `- Email: ${formData.email}\n`;
+        message += `- Address: ${formData.address}, ${formData.city}, ${formData.province}\n`;
+        message += `- Payment: ${formData.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Advance Payment'}\n`;
 
         // Encode and open WhatsApp
         const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/message/YQJES4FOSNDVO1?text=${encodedMessage}`, '_blank');
+        // Using the resolved number from the user's short link (https://wa.me/message/YQJES4FOSNDVO1 -> 923329105111)
+        // to ensure the ?text parameter is correctly handled.
+        window.open(`https://wa.me/923329105111?text=${encodedMessage}`, '_blank');
     };
 
     if (cart.length === 0) {
@@ -93,22 +95,20 @@ const CheckoutClient = () => {
 
                         <div className="form-row">
                             <div className="form-group">
-                                <label>Phone</label>
+                                <label>Phone <span className="text-subtle">(Optional)</span></label>
                                 <input
                                     type="tel"
                                     name="phone"
-                                    required
                                     value={formData.phone}
                                     onChange={handleInputChange}
                                     placeholder="+92..."
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Email</label>
+                                <label>Email <span className="text-subtle">(Optional)</span></label>
                                 <input
                                     type="email"
                                     name="email"
-                                    required
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     placeholder="john@example.com"

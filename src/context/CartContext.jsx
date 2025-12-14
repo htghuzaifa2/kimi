@@ -7,6 +7,27 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // Load from LocalStorage on Mount
+    useEffect(() => {
+        const savedCart = localStorage.getItem('kimi_cart');
+        if (savedCart) {
+            try {
+                setCart(JSON.parse(savedCart));
+            } catch (e) {
+                console.error("Failed to parse cart from local storage", e);
+            }
+        }
+        setIsLoaded(true);
+    }, []);
+
+    // Save to LocalStorage on Change
+    useEffect(() => {
+        if (isLoaded) {
+            localStorage.setItem('kimi_cart', JSON.stringify(cart));
+        }
+    }, [cart, isLoaded]);
 
     const addToCart = (product, quantity, color, size) => {
         setCart(prevCart => {

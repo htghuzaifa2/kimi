@@ -13,10 +13,11 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
     // ... (inside map) ... placeholder removed
 
+    const router = useRouter(); // FIX: Initialize router
     const pathname = usePathname();
     // const searchParams = useSearchParams(); // If we need query params
 
-    const [sortBy, setSortBy] = useState('newest');
+    const [sortBy, setSortBy] = useState('newest'); // Default & Fixed
     const [activeCategory, setActiveCategory] = useState('All');
     const [activeSubCategory, setActiveSubCategory] = useState(null);
     const [productTypeFilter, setProductTypeFilter] = useState('All');
@@ -32,8 +33,9 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
     const containerRef = useRef(null);
     const previousScrollHeightRef = useRef(0);
 
-    // Use static categories combined with "All"
-    const categories = useMemo(() => ['All', ...staticCategories], []);
+    // Use static categories combined with "All", Explicitly defining UI categories
+    // Removed "Gaming Outfits", Added "Ghost of Yotei"
+    const categories = useMemo(() => ['All', 'Men', 'Women', 'Kids', 'Ghost of Yotei'], []);
 
     // Initialize from Params
     useEffect(() => {
@@ -44,15 +46,8 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
             ).join(' ');
             setActiveCategory(formattedCategory);
 
-            // Handle sub-category for Gaming Outfits
-            if (subCategoryParam) {
-                const formattedSubCategory = subCategoryParam.split('-').map(word =>
-                    word.charAt(0).toUpperCase() + word.slice(1)
-                ).join(' ');
-                setActiveSubCategory(formattedSubCategory);
-            } else {
-                setActiveSubCategory(null);
-            }
+            // Should be null unless valid sub-category logic handling is added back
+            setActiveSubCategory(null);
         } else {
             setActiveCategory('All');
             setActiveSubCategory(null);
@@ -62,31 +57,17 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
         setProductTypeFilter('All');
     }, [categoryParam, subCategoryParam]);
 
-    // Check if we're viewing Gaming Outfits sub-category selection
-    const isGamingOutfitsView = activeCategory === 'Gaming Outfits' && !activeSubCategory;
-
     // Filter & Sort Logic
     const filteredProducts = useMemo(() => {
         let result = [...products];
 
-        // 1. Identify if we are viewing a specific Game (Flat Route)
-        // param: "Ghost of Yotei" -> matches a game in gamingSubCategories
-        const activeGame = gamingSubCategories.find(game =>
-            game.toLowerCase() === activeCategory.toLowerCase()
-        );
-
-        if (activeGame) {
-            // Filter by subCategory (Game Name)
-            result = result.filter(p => p.subCategory === activeGame);
+        // 1. Identify active category
+        if (activeCategory === 'Ghost of Yotei') {
+            // Special handling for this "Game" as a main category
+            result = result.filter(p => p.subCategory === 'Ghost of Yotei');
         } else if (activeCategory !== 'All') {
-            // Normal Category Filter (Men, Women, Kids, Gaming Outfits)
+            // Normal Category Filter (Men, Women, Kids)
             result = result.filter(p => p.category === activeCategory);
-        }
-
-        // Filter by Sub-Category (Only applies if we are NOT in a flat game route, 
-        // e.g. for /shop/gaming-outfits/ghost-of-yotei if that legacy route is hit, or future nested structures)
-        if (activeSubCategory && !activeGame) {
-            result = result.filter(p => p.subCategory === activeSubCategory);
         }
 
         // Filter by Product Type
@@ -96,29 +77,30 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
         // Sort
         switch (sortBy) {
-            case 'price-asc':
+            case 'price-low-high':
                 result.sort((a, b) => a.price - b.price);
                 break;
-            case 'price-desc':
+            case 'price-high-low':
                 result.sort((a, b) => b.price - a.price);
                 break;
+            case 'oldest':
+                result.sort((a, b) => a.id - b.id);
+                break;
             case 'newest':
+            default:
                 result.sort((a, b) => b.id - a.id);
                 break;
-            case 'featured':
-                break;
-            default:
-                break;
         }
+
         return result;
-    }, [activeCategory, activeSubCategory, sortBy, productTypeFilter]);
+    }, [activeCategory, productTypeFilter, sortBy]);
 
     // Reset to page 1 when filters change
     useEffect(() => {
         if (visiblePages[0] !== 1 || visiblePages.length > 1) {
             setVisiblePages([1]);
         }
-    }, [activeCategory, activeSubCategory, sortBy, productTypeFilter]);
+    }, [activeCategory, productTypeFilter, sortBy]);
 
     // Calculate total pages
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -176,178 +158,117 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
         }
     }, [visiblePages, isLoading]);
 
-    const handleCategoryChange = (cat) => {
-        if (cat === 'All') {
-            router.push('/shop');
-        } else {
-            const slug = cat.toLowerCase().replace(/\s+/g, '-');
-            router.push(`/shop/${slug}`);
-        }
-        setVisiblePages([1]);
-        // window.scrollTo(0, 0); // Next.js handles scrolling usually, but we can force it if needed.
-    };
-
-    const handleSubCategoryClick = (subCat) => {
-        const subCatSlug = subCat.toLowerCase().replace(/\s+/g, '-');
-        // Flat routing: /shop/ghost-of-yotei
-        router.push(`/shop/${subCatSlug}`);
-    };
-
     const minPage = Math.min(...visiblePages);
     const maxPage = Math.max(...visiblePages);
 
     return (
         <div className="shop-container container" ref={containerRef}>
-            {/* Category Header */}
+            {/* Category Header (Title Only - Pills Removed) */}
             <div className="category-header">
-                <h1 className="h2 mb-6">{activeSubCategory || activeCategory}</h1>
-                <div className="category-pills">
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            className={`category-pill ${activeCategory === cat ? 'active' : ''}`}
-                            onClick={() => handleCategoryChange(cat)}
-                        >
-                            {cat}
-                        </button>
-                    ))}
-                </div>
+                <h1 className="h2 mb-6">{activeCategory}</h1>
             </div>
 
-            {/* Gaming Outfits Sub-Categories */}
-            {isGamingOutfitsView && (
-                <div className="gaming-subcategories">
-                    <h2 className="h3 mb-6">Select a Game</h2>
-                    <div className="categories-grid">
-                        {gamingSubCategories.map(game => {
-                            const gameProducts = products.filter(p => p.subCategory === game);
-                            if (gameProducts.length === 0) return null;
-
-                            return (
-                                <div
-                                    key={game}
-                                    className="category-tile"
-                                    onClick={() => handleSubCategoryClick(game)}
-                                >
-                                    <div className="category-tile-image-wrapper">
-                                        <img src={gameProducts[0].image} alt={game} className="category-tile-image" />
-                                        <div className="category-tile-overlay"></div>
-                                    </div>
-                                    <div className="category-tile-content">
-                                        <h3 className="category-tile-title">{game}</h3>
-                                        <span className="category-tile-count">{gameProducts.length} Products</span>
-                                    </div>
-                                </div>
-                            );
-                        })}
+            <div className="shop-layout-single-col">
+                {/* Top Filter Bar - Sort & Product Type */}
+                <div className="shop-toolbar mb-8" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="toolbar-group">
+                        <label className="toolbar-label">Sort By:</label>
+                        <select
+                            className="toolbar-select"
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                        >
+                            <option value="newest">Latest (New to Old)</option>
+                            <option value="oldest">Oldest (Old to New)</option>
+                            <option value="price-low-high">Price: Low to High</option>
+                            <option value="price-high-low">Price: High to Low</option>
+                        </select>
                     </div>
-                </div>
-            )}
 
-            {/* Product Grid (for non-Gaming Outfits or when sub-category is selected) */}
-            {!isGamingOutfitsView && (
-                <div className="shop-layout-single-col">
-                    {/* Top Filter Bar */}
-                    <div className="shop-toolbar mb-8">
+                    {activeCategory !== 'All' /* Show Product Type Filter if needed, or always? Keeping logical */ && (
                         <div className="toolbar-group">
-                            <label className="toolbar-label">Sort By:</label>
+                            <label className="toolbar-label">Product Type:</label>
                             <select
                                 className="toolbar-select"
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
+                                value={productTypeFilter}
+                                onChange={(e) => setProductTypeFilter(e.target.value)}
                             >
-                                <option value="newest">Newest Arrivals</option>
-                                <option value="featured">Featured</option>
-                                <option value="price-asc">Price: Low to High</option>
-                                <option value="price-desc">Price: High to Low</option>
+                                <option value="All">All Types</option>
+                                {productTypes.map(type => (
+                                    <option key={type} value={type}>{type}s</option>
+                                ))}
                             </select>
                         </div>
+                    )}
+                </div>
 
-                        {activeSubCategory && (
-                            <div className="toolbar-group">
-                                <label className="toolbar-label">Product Type:</label>
-                                <select
-                                    className="toolbar-select"
-                                    value={productTypeFilter}
-                                    onChange={(e) => setProductTypeFilter(e.target.value)}
-                                >
-                                    <option value="All">All Types</option>
-                                    {productTypes.map(type => (
-                                        <option key={type} value={type}>{type}s</option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
-                    </div>
+                {/* Product Grid & Pagination */}
+                <main className="shop-main">
+                    {/* Load Previous Button */}
+                    {minPage > 1 && (
+                        <div className="pagination-container" style={{ marginTop: 0, marginBottom: '30px' }}>
+                            <button
+                                className="btn btn-outline"
+                                onClick={handleLoadPrevious}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Loading...' : 'Load Previous Products'}
+                            </button>
+                        </div>
+                    )}
 
-                    {/* Product Grid & Pagination */}
-                    <main className="shop-main">
-                        {/* Load Previous Button */}
-                        {minPage > 1 && (
-                            <div className="pagination-container" style={{ marginTop: 0, marginBottom: '30px' }}>
-                                <button
-                                    className="btn btn-outline"
-                                    onClick={handleLoadPrevious}
-                                    disabled={isLoading}
-                                >
-                                    {isLoading ? 'Loading...' : 'Load Previous Products'}
-                                </button>
-                            </div>
-                        )}
-
-                        <div className="product-grid">
-                            {visibleProducts.map((product) => (
-                                <div key={product.id} className="product-card fade-in">
-                                    <Link href={`/product/${product.slug}`} className="product-image-wrapper">
-                                        <img src={product.image} alt={product.name} className="product-image" />
-                                        <div className="product-overlay">
-                                            <button className="btn btn-secondary quick-view-btn">View Details</button>
-                                            <button
-                                                className={`btn btn-icon ${isInCompare(product.id) ? 'bg-primary text-white' : 'bg-white text-black'}`}
-                                                style={{ marginTop: '8px', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                    if (isInCompare(product.id)) {
-                                                        removeFromCompare(product.id);
-                                                    } else {
-                                                        addToCompare(product);
-                                                    }
-                                                }}
-                                                title={isInCompare(product.id) ? "Remove from Compare" : "Add to Compare"}
-                                            >
-                                                <Scale size={20} />
-                                            </button>
-                                        </div>
-                                    </Link>
-                                    <div className="product-info">
-                                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-light)', fontWeight: '500', marginBottom: '4px', display: 'block' }}>
-                                            ID: {product.id}
-                                        </span>
-                                        <Link href={`/product/${product.slug}`} className="product-title">{product.name}</Link>
-                                        <div className="product-meta">
-                                            <span className="product-price">PKR {product.price.toLocaleString()}</span>
-                                        </div>
+                    <div className="product-grid">
+                        {visibleProducts.map((product) => (
+                            <div key={product.id} className="product-card fade-in">
+                                <Link href={`/product/${product.slug}`} className="product-image-wrapper">
+                                    <img src={product.image} alt={product.name} className="product-image" />
+                                    <div className="product-overlay">
+                                        <button className="btn btn-secondary quick-view-btn">View Details</button>
+                                        <button
+                                            className={`btn btn-icon ${isInCompare(product.id) ? 'bg-primary text-white' : 'bg-white text-black'}`}
+                                            style={{ marginTop: '8px', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                if (isInCompare(product.id)) {
+                                                    removeFromCompare(product.id);
+                                                } else {
+                                                    addToCompare(product);
+                                                }
+                                            }}
+                                            title={isInCompare(product.id) ? "Remove from Compare" : "Add to Compare"}
+                                        >
+                                            <Scale size={20} />
+                                        </button>
+                                    </div>
+                                </Link>
+                                <div className="product-info">
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-light)', fontWeight: '500', marginBottom: '4px', display: 'block' }}>
+                                        ID: {product.id}
+                                    </span>
+                                    <Link href={`/product/${product.slug}`} className="product-title">{product.name}</Link>
+                                    <div className="product-meta">
+                                        <span className="product-price">PKR {product.price.toLocaleString()}</span>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-
-                        {/* Load More Button */}
-                        {maxPage < totalPages && (
-                            <div className="pagination-container">
-                                <button
-                                    className="btn btn-outline"
-                                    onClick={handleLoadMore}
-                                    disabled={isLoading}
-                                >
-                                    {isLoading ? 'Loading...' : 'Load More Products'}
-                                </button>
                             </div>
-                        )}
-                    </main>
-                </div >
-            )}
+                        ))}
+                    </div>
+
+                    {/* Load More Button */}
+                    {maxPage < totalPages && (
+                        <div className="pagination-container">
+                            <button
+                                className="btn btn-outline"
+                                onClick={handleLoadMore}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Loading...' : 'Load More Products'}
+                            </button>
+                        </div>
+                    )}
+                </main>
+            </div >
         </div >
     );
 };

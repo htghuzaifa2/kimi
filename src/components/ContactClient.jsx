@@ -11,9 +11,9 @@ const ContactClient = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const text = `*New Contact Message*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`;
+        const text = `*New Contact Message from kimi.com.pk*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`;
         const encodedText = encodeURIComponent(text);
-        window.open(`https://wa.me/message/YQJES4FOSNDVO1?text=${encodedText}`, '_blank');
+        window.open(`https://wa.me/923329105111?text=${encodedText}`, '_blank');
     };
 
     return (
@@ -39,7 +39,7 @@ const ContactClient = () => {
                         <div className="contact-card">
                             <h3 className="h4">WhatsApp</h3>
                             <a
-                                href="https://wa.me/message/YQJES4FOSNDVO1"
+                                href="https://wa.me/923329105111"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn btn-primary"

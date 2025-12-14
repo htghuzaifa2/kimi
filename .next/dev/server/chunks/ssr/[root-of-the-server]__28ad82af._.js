@@ -15,7 +15,7 @@ __turbopack_context__.n(__turbopack_context__.i("[project]/src/app/not-found.js 
 }),
 "[project]/src/data/products.json (json)", ((__turbopack_context__) => {
 
-__turbopack_context__.v([{"id":1,"title":"Ghost of Yotei Gray Hoodie – Atsu, Wolf & Mount Yotei","slug":"ghost-of-yotei-gray-hoodie-atsu-wolf-mount-yotei","price":3600,"currency":"PKR","brand":"Kimi","categories":["ghost-of-yotei","men"],"images":[{"url":"https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp","alt":"Ghost of Yotei gray hoodie featuring Atsu, Wolf and Mount Yotei artwork"}],"shortDescription":"Premium gray hoodie with Atsu, Wolf & Mount Yotei artwork. Soft fleece interior, relaxed streetwear fit, durable cotton fabric, and custom size option.","description":"This Ghost of Yotei Gray Hoodie merges Japanese-inspired artwork with modern streetwear aesthetics. The gray tone enhances the detailed graphics of Atsu, the Wolf, and Mount Yotei. Crafted from premium cotton, it offers softness, warmth, and durability while staying breathable for year-round wear. The relaxed yet structured fit maintains a clean silhouette with ribbed cuffs, a reinforced hem, and an adjustable hood. Perfect for layering, casual outfits, or everyday urban looks.","specs":{"fabric":"100% Premium Cotton","interior":"Brushed fleece for added warmth","fit":"Relaxed fit","season":"All-season","print":"High-detail Atsu, Wolf & Mount Yotei artwork","care":"Machine wash cold; tumble dry low; do not bleach","customSizeAvailable":true},"notes":"Manual measurement may vary 1–3cm."},{"id":2,"title":"Ghost of Yotei Pink Hoodie – Atsu & Mount Yotei","slug":"ghost-of-yotei-pink-hoodie-atsu-mount-yotei","price":3600,"currency":"PKR","brand":"Kimi","categories":["gaming-outfits","ghost-of-yotei","men"],"images":[{"url":"https://i.postimg.cc/g2YnW02T/Ghost-of-Yotei-Pink-Hoodie.webp","alt":"Ghost of Yotei pink hoodie featuring Atsu and Mount Yotei artwork"}],"shortDescription":"Premium pink hoodie featuring Atsu & Mount Yotei artwork. Soft cotton blend, warm and breathable, relaxed fit, perfect for casual wear or collectors.","description":"Step into the mysterious world of Ghost of Yotei with this pink hoodie featuring Atsu and Mount Yotei. Made from a high-quality cotton blend, it provides warmth, durability, and comfort for everyday wear. The detailed artwork highlights the legendary warrior Atsu against the backdrop of Mount Yotei, reflecting Japanese artistry and the iconic samurai spirit. Ideal for casual outfits, gaming sessions, or as a collectible for fans of Ghost of Yotei.","specs":{"fabric":"Premium cotton blend","interior":"Soft and breathable lining","fit":"Relaxed fit","season":"All-season","print":"High-detail Atsu & Mount Yotei artwork","care":"Machine wash cold; tumble dry low; do not bleach","customSizeAvailable":true},"notes":"Manual measurement may vary 1–3cm."}]);}),
+__turbopack_context__.v([{"id":1,"title":"Ghost of Yotei Gray Hoodie – Atsu, Wolf & Mount Yotei","slug":"ghost-of-yotei-gray-hoodie-atsu-wolf-mount-yotei","price":3600,"currency":"PKR","brand":"Kimi","categories":["ghost-of-yotei","men"],"images":[{"url":"https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp","alt":"Ghost of Yotei gray hoodie featuring Atsu, Wolf and Mount Yotei artwork"}],"shortDescription":"Premium gray hoodie with Atsu, Wolf & Mount Yotei artwork. Soft fleece interior, relaxed streetwear fit, durable cotton fabric, and custom size option.","description":"This Ghost of Yotei Gray Hoodie merges Japanese-inspired artwork with modern streetwear aesthetics. The gray tone enhances the detailed graphics of Atsu, the Wolf, and Mount Yotei. Crafted from premium cotton, it offers softness, warmth, and durability while staying breathable for year-round wear. The relaxed yet structured fit maintains a clean silhouette with ribbed cuffs, a reinforced hem, and an adjustable hood. Perfect for layering, casual outfits, or everyday urban looks.","specs":{"fabric":"100% Premium Cotton","interior":"Brushed fleece for added warmth","fit":"Relaxed fit","season":"All-season","print":"High-detail Atsu, Wolf & Mount Yotei artwork","care":"Machine wash cold; tumble dry low; do not bleach","customSizeAvailable":true},"notes":"Manual measurement may vary 1–3cm."},{"id":2,"title":"Ghost of Yotei Pink Hoodie – Atsu & Mount Yotei","slug":"ghost-of-yotei-pink-hoodie-atsu-mount-yotei","price":3600,"currency":"PKR","brand":"Kimi","categories":["ghost-of-yotei","men"],"images":[{"url":"https://i.postimg.cc/g2YnW02T/Ghost-of-Yotei-Pink-Hoodie.webp","alt":"Ghost of Yotei pink hoodie featuring Atsu and Mount Yotei artwork"}],"shortDescription":"Premium pink hoodie featuring Atsu & Mount Yotei artwork. Soft cotton blend, warm and breathable, relaxed fit, perfect for casual wear or collectors.","description":"Step into the mysterious world of Ghost of Yotei with this pink hoodie featuring Atsu and Mount Yotei. Made from a high-quality cotton blend, it provides warmth, durability, and comfort for everyday wear. The detailed artwork highlights the legendary warrior Atsu against the backdrop of Mount Yotei, reflecting Japanese artistry and the iconic samurai spirit. Ideal for casual outfits, gaming sessions, or as a collectible for fans of Ghost of Yotei.","specs":{"fabric":"Premium cotton blend","interior":"Soft and breathable lining","fit":"Relaxed fit","season":"All-season","print":"High-detail Atsu & Mount Yotei artwork","care":"Machine wash cold; tumble dry low; do not bleach","customSizeAvailable":true},"notes":"Manual measurement may vary 1–3cm."}]);}),
 "[project]/src/data/products.js [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -114,7 +114,7 @@ const seoConfig = {
     },
     contact: {
         title: "Contact Us",
-        description: "Need help with custom sizing? Contact Kimi's support team in Pakistan. We're here to assist with orders, fits, and fashion inquiries. WhatsApp or email us today.",
+        description: "Need help with custom sizing? Contact Kimi's support team in Pakistan for orders, fits, and inquiries. WhatsApp or email us today.",
         keywords: "contact Kimi, custom sizing help, customer support Pakistan, clothing inquiries",
         canonicalUrl: "/contact",
         ogImage: "/og-contact.jpg"
@@ -128,14 +128,14 @@ const seoConfig = {
     },
     faq: {
         title: "FAQ",
-        description: "Find answers about Kimi's custom sizing, shipping across Pakistan, and return policies. Everything you need to know for a seamless shopping experience.",
+        description: "Find answers about Kimi's custom sizing, shipping across Pakistan, and return policies. Everything needed for a seamless shopping experience.",
         keywords: "Kimi FAQ, custom size guide, shipping Pakistan, returns policy",
         canonicalUrl: "/faq",
         ogImage: "/og-faq.jpg"
     },
     shipping: {
         title: "Shipping Policy",
-        description: "Experience fast, reliable shipping across Pakistan with Kimi. Free delivery on qualifying orders. tracking available for all custom and superior standard shipments.",
+        description: "Fast, reliable shipping across Pakistan with Kimi. Free delivery on qualifying orders. Tracking available for all custom and standard shipments.",
         keywords: "shipping Pakistan, fast delivery, Kimi shipping, free delivery Lahore Karachi Islamabad",
         canonicalUrl: "/shipping",
         ogImage: "/og-shipping.jpg"
@@ -149,28 +149,28 @@ const seoConfig = {
     },
     cod: {
         title: "Cash on Delivery",
-        description: "Shop premium fashion with confidence. Kimi offers Cash on Delivery (COD) services everywhere in Pakistan. Inspect your custom fits upon arrival.",
+        description: "Shop premium fashion confidently. Kimi offers Cash on Delivery (COD) across Pakistan. Inspect your custom fits upon arrival.",
         keywords: "cash on delivery Pakistan, COD shopping, secure payment, Kimi payments",
         canonicalUrl: "/cod",
         ogImage: "/og-cod.jpg"
     },
     checkout: {
         title: "Checkout",
-        description: "Complete your order for premium custom-fit clothing. Secure checkout with COD and online payment options. Fast dispatch to all cities in Pakistan.",
+        description: "Complete your order for premium custom-fit clothing. Secure checkout with COD and online payment options. Fast dispatch to all cities.",
         keywords: "checkout, buy clothes Pakistan, secure payment, custom sizing order",
         canonicalUrl: "/checkout",
         ogImage: "/og-checkout.jpg"
     },
     terms: {
         title: "Terms of Service",
-        description: "Kimi's terms of service. Transparent policies for custom sizing orders, shipping, and usage. Designed to protect our valued Pakistani customers.",
+        description: "Kimi's terms of service. Transparent policies for custom sizing orders, shipping, and usage. Protecting our valued Pakistani customers.",
         keywords: "terms of service, legal, custom order terms, Kimi policies",
         canonicalUrl: "/terms",
         ogImage: "/og-terms.jpg"
     },
     privacy: {
         title: "Privacy Policy",
-        description: "Your privacy matters. Learn how Kimi protects your personal data while providing you with the best personalized shopping experience in Pakistan.",
+        description: "Your privacy matters. Learn how Kimi protects your personal data while providing the best personalized shopping experience in Pakistan.",
         keywords: "privacy policy, data protection Pakistan, secure shopping",
         canonicalUrl: "/privacy",
         ogImage: "/og-privacy.jpg"
@@ -184,10 +184,17 @@ const seoConfig = {
     },
     sizeGuide: {
         title: "Size Guide",
-        description: "Not sure about your size? Check our detailed guide or choose Custom Sizing for a tailored fit unique to you. The best fit in Pakistan, guaranteed.",
+        description: "Not sure about your size? Check our guide or choose Custom Sizing for a tailored fit. The best fit in Pakistan, guaranteed.",
         keywords: "size guide, custom sizing Pakistan, how to measure, tailored fit",
         canonicalUrl: "/size-guide",
         ogImage: "/og-size-guide.jpg"
+    },
+    compare: {
+        title: "Compare Products",
+        description: "Compare your favorite Kimi products side-by-side. Analyze features, prices, and styles to make the perfect choice for your custom fit.",
+        keywords: "compare clothing, product comparison, Kimi feature compare, price check",
+        canonicalUrl: "/compare",
+        ogImage: "/favicon.ico"
     },
     search: {
         title: "Search Results",
@@ -255,10 +262,10 @@ function CollectionsPage() {
             count: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$products$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["products"].filter((p)=>p.category === 'Kids').length
         },
         {
-            name: 'Gaming Outfits',
-            image: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$products$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["products"].find((p)=>p.category === 'Gaming Outfits')?.image || __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$products$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["products"].find((p)=>p.subCategory)?.image || '/placeholder.jpg',
-            link: '/shop/gaming-outfits',
-            count: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$products$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["products"].filter((p)=>p.category === 'Gaming Outfits').length
+            name: 'Ghost of Yotei',
+            image: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$products$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["products"].find((p)=>p.subCategory === 'Ghost of Yotei')?.image || '/placeholder.jpg',
+            link: '/shop/ghost-of-yotei',
+            count: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$products$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["products"].filter((p)=>p.subCategory === 'Ghost of Yotei').length
         }
     ];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {

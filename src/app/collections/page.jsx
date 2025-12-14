@@ -28,7 +28,7 @@ export default function CollectionsPage() {
         { name: 'Men', image: products.find(p => p.category === 'Men')?.image || '/placeholder.jpg', link: '/shop/men', count: products.filter(p => p.category === 'Men').length },
         { name: 'Women', image: products.find(p => p.category === 'Women')?.image || '/placeholder.jpg', link: '/shop/women', count: products.filter(p => p.category === 'Women').length },
         { name: 'Kids', image: products.find(p => p.category === 'Kids')?.image || '/placeholder.jpg', link: '/shop/kids', count: products.filter(p => p.category === 'Kids').length },
-        { name: 'Gaming Outfits', image: products.find(p => p.category === 'Gaming Outfits')?.image || products.find(p => p.subCategory)?.image || '/placeholder.jpg', link: '/shop/gaming-outfits', count: products.filter(p => p.category === 'Gaming Outfits').length },
+        { name: 'Ghost of Yotei', image: products.find(p => p.subCategory === 'Ghost of Yotei')?.image || '/placeholder.jpg', link: '/shop/ghost-of-yotei', count: products.filter(p => p.subCategory === 'Ghost of Yotei').length },
     ];
 
     return (
