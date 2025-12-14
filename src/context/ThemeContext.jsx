@@ -21,13 +21,7 @@ export const ThemeProvider = ({ children }) => {
             return savedTheme;
         }
 
-        // First visit: detect system theme
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            return 'light';
-        }
-
+        // First visit: default to light mode (no system detection)
         return 'light';
     };
 

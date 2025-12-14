@@ -11,6 +11,7 @@ import '../styles/Account.css';
 import Providers from '../components/Providers';
 import Layout from '../layouts/Layout';
 import AssistiveTouch from '../components/AssistiveTouch';
+import PrefetchLoader from '../components/PrefetchLoader';
 
 export const metadata = {
     metadataBase: new URL('https://kimi.com.pk'),
@@ -35,7 +36,7 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        site: '@kimistore', // Update with actual handle if available
+        site: '@kimistore',
         creator: '@kimistore',
     },
 };
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body suppressHydrationWarning={true}>
+                <PrefetchLoader />
                 <Providers>
                     <Layout>
                         {children}

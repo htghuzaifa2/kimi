@@ -1,6 +1,6 @@
-/* AssistiveTouch.css */
+/* AssistiveTouch.css - Unique Icon Design */
 
-/* --- Overlay --- */
+/* === Overlay === */
 .assistive-overlay {
     position: fixed;
     top: 0;
@@ -8,12 +8,23 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 9998;
-    animation: fadeIn 0.3s ease;
+    animation: overlayFadeIn 0.3s ease;
 }
 
-/* --- Main Container --- */
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* === Main Container === */
 .assistive-container {
     position: fixed;
     top: 0;
@@ -27,99 +38,132 @@
     transition: opacity 0.5s ease;
 }
 
+/* Idle State - Low opacity after 2 seconds */
 .assistive-container.idle {
-    opacity: 0.3;
-    /* More transparent when idle */
+    opacity: 0.4;
 }
 
-.assistive-container.idle:hover,
+.assistive-container.idle:hover {
+    opacity: 1;
+}
+
 .assistive-container.open {
     opacity: 1;
 }
 
-/* --- The Ball --- */
+/* === The Ball === */
 .assistive-ball {
-    width: 48px;
-    height: 48px;
-    background: #111;
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(145deg, #1f1f1f, #0f0f0f);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     cursor: grab;
     position: absolute;
     z-index: 10001;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
     touch-action: none;
-    overflow: hidden;
 }
 
-/* Idle State: Little White Ball */
-.assistive-container.idle .assistive-ball {
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    /* Remove the black background look */
+/* === Unique Icon: 4-Dot Grid === */
+.assistive-ball-icon {
+    width: 20px;
+    height: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    transition: all 0.3s ease;
 }
 
-/* Hide icon/content when idle */
-.assistive-container.idle .assistive-ball svg {
+.assistive-ball-icon span {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* Icon hover glow */
+.assistive-ball:hover .assistive-ball-icon span {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Hide icon when open */
+.assistive-container.open .assistive-ball-icon {
     opacity: 0;
-    transform: scale(0);
-    transition: all 0.3s ease;
+    transform: scale(0) rotate(45deg);
 }
 
+/* X icon styling */
 .assistive-ball svg {
-    opacity: 1;
-    transform: scale(1);
+    position: absolute;
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
     transition: all 0.3s ease;
+    color: white;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
 }
 
-/* Pulse animation when idle */
-.assistive-container.idle .assistive-ball {
-    animation: pulse-dot 3s infinite ease-in-out;
+.assistive-container.open .assistive-ball svg {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
 }
 
-@keyframes pulse-dot {
-
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
+/* Ball hover */
+.assistive-ball:hover {
+    box-shadow:
+        0 6px 28px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+/* Ball active/click */
 .assistive-ball:active {
     cursor: grabbing;
-    transform: scale(0.92);
+    transform: scale(0.95);
+    transition: all 0.1s ease;
 }
 
+/* Idle State */
+.assistive-container.idle .assistive-ball {
+    width: 48px;
+    height: 48px;
+}
+
+.assistive-container.idle .assistive-ball-icon {
+    width: 18px;
+    height: 18px;
+    gap: 4px;
+}
+
+.assistive-container.idle .assistive-ball-icon span {
+    width: 5px;
+    height: 5px;
+}
+
+/* Open State */
 .assistive-container.open .assistive-ball {
-    background: var(--color-primary);
-    transform: scale(0.9);
-    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4);
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
 }
 
-/* --- The Menu Ring --- */
+/* === The Menu Ring === */
 .assistive-ring {
     position: absolute;
-    width: 360px;
-    height: 360px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     pointer-events: none;
     opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(0.6);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 10000;
     display: flex;
     align-items: center;
@@ -130,42 +174,57 @@
     pointer-events: auto;
     opacity: 1;
     transform: scale(1);
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
-/* --- Menu Items (Text Only) --- */
+/* === Menu Items === */
 .assistive-item {
     position: absolute;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 24px;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     text-decoration: none;
     white-space: nowrap;
     user-select: none;
     -webkit-user-select: none;
-    /* Safari */
-
-
-    /* Center the item relative to its transform point */
-    margin-top: -18px;
-    margin-left: -50px;
+    margin-top: -20px;
+    margin-left: -55px;
     min-width: 100px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    z-index: 9999;
 }
 
+.assistive-ring.visible .assistive-item {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Item hover */
 .assistive-item:hover {
-    transform: scale(1.1);
     background: var(--color-bg-secondary);
-    z-index: 10;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    z-index: 10002;
 }
 
+/* Item active */
+.assistive-item:active {
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.08s ease;
+}
+
+/* Item label */
 .assistive-item-label {
     font-size: 0.85rem;
     font-weight: 600;
@@ -173,79 +232,149 @@
     line-height: 1;
 }
 
-/* --- Center Hint --- */
-.assistive-hint {
-    position: absolute;
-    text-align: center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease 0.2s;
+/* === Dark Mode === */
+[data-theme='dark'] .assistive-overlay {
+    background: rgba(0, 0, 0, 0.6);
 }
 
-.assistive-ring.visible .assistive-hint {
-    opacity: 0.6;
+[data-theme='dark'] .assistive-ball {
+    background: linear-gradient(145deg, #3a3a3a, #252525);
 }
 
-.assistive-hint span {
-    font-size: 0.65rem;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    font-weight: 500;
-    line-height: 1.2;
-    display: block;
-}
-
-/* --- Animations --- */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
-    }
-
-    50% {
-        transform: scale(1.02);
-        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
-    }
-
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-    }
-}
-
-/* --- Responsive & Dark Mode --- */
-@media (max-width: 768px) {
-    .assistive-ball {
-        width: 44px;
-        /* Even smaller on mobile */
-        height: 44px;
-    }
-
-    .assistive-item {
-        padding: 6px 12px;
-        min-width: 80px;
-    }
-
-    .assistive-item-label {
-        font-size: 0.75rem;
-    }
+[data-theme='dark'] .assistive-ball:hover {
+    background: linear-gradient(145deg, #454545, #303030);
 }
 
 [data-theme='dark'] .assistive-item {
-    background: rgba(30, 30, 30, 0.9);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(35, 35, 35, 0.98);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme='dark'] .assistive-item:hover {
     background: rgba(50, 50, 50, 1);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* === Responsive === */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .assistive-ball {
+        width: 50px;
+        height: 50px;
+    }
+
+    .assistive-container.idle .assistive-ball {
+        width: 46px;
+        height: 46px;
+    }
+
+    .assistive-ring {
+        width: 360px;
+        height: 360px;
+    }
+
+    .assistive-item {
+        padding: 9px 18px;
+        min-width: 90px;
+        margin-left: -48px;
+    }
+
+    .assistive-item-label {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .assistive-ball {
+        width: 48px;
+        height: 48px;
+    }
+
+    .assistive-container.idle .assistive-ball {
+        width: 44px;
+        height: 44px;
+    }
+
+    .assistive-ball-icon {
+        width: 18px;
+        height: 18px;
+        gap: 4px;
+    }
+
+    .assistive-ball-icon span {
+        width: 5px;
+        height: 5px;
+    }
+
+    .assistive-ring {
+        width: 320px;
+        height: 320px;
+    }
+
+    .assistive-item {
+        padding: 8px 14px;
+        min-width: 82px;
+        margin-left: -42px;
+        margin-top: -18px;
+    }
+
+    .assistive-item-label {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .assistive-ball {
+        width: 44px;
+        height: 44px;
+    }
+
+    .assistive-container.idle .assistive-ball {
+        width: 40px;
+        height: 40px;
+    }
+
+    .assistive-ball-icon {
+        width: 16px;
+        height: 16px;
+        gap: 3px;
+    }
+
+    .assistive-ball-icon span {
+        width: 5px;
+        height: 5px;
+    }
+
+    .assistive-ring {
+        width: 280px;
+        height: 280px;
+    }
+
+    .assistive-item {
+        padding: 7px 12px;
+        min-width: 72px;
+        margin-left: -36px;
+    }
+
+    .assistive-item-label {
+        font-size: 0.72rem;
+    }
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition-duration: 0.1s !important;
+    }
+}
+
+.assistive-item:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-primary), 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.assistive-ball:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary), 0 4px 16px rgba(0, 0, 0, 0.3);
 }

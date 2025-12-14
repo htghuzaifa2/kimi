@@ -31,7 +31,7 @@ const seoConfig = {
     },
     contact: {
         title: "Contact Us",
-        description: "Need help with custom sizing? Contact Kimi's support team in Pakistan. We're here to assist with orders, fits, and fashion inquiries. WhatsApp or email us today.",
+        description: "Need help with custom sizing? Contact Kimi's support team in Pakistan for orders, fits, and inquiries. WhatsApp or email us today.",
         keywords: "contact Kimi, custom sizing help, customer support Pakistan, clothing inquiries",
         canonicalUrl: "/contact",
         ogImage: "/og-contact.jpg"
@@ -45,14 +45,14 @@ const seoConfig = {
     },
     faq: {
         title: "FAQ",
-        description: "Find answers about Kimi's custom sizing, shipping across Pakistan, and return policies. Everything you need to know for a seamless shopping experience.",
+        description: "Find answers about Kimi's custom sizing, shipping across Pakistan, and return policies. Everything needed for a seamless shopping experience.",
         keywords: "Kimi FAQ, custom size guide, shipping Pakistan, returns policy",
         canonicalUrl: "/faq",
         ogImage: "/og-faq.jpg"
     },
     shipping: {
         title: "Shipping Policy",
-        description: "Experience fast, reliable shipping across Pakistan with Kimi. Free delivery on qualifying orders. tracking available for all custom and superior standard shipments.",
+        description: "Fast, reliable shipping across Pakistan with Kimi. Free delivery on qualifying orders. Tracking available for all custom and standard shipments.",
         keywords: "shipping Pakistan, fast delivery, Kimi shipping, free delivery Lahore Karachi Islamabad",
         canonicalUrl: "/shipping",
         ogImage: "/og-shipping.jpg"
@@ -66,28 +66,28 @@ const seoConfig = {
     },
     cod: {
         title: "Cash on Delivery",
-        description: "Shop premium fashion with confidence. Kimi offers Cash on Delivery (COD) services everywhere in Pakistan. Inspect your custom fits upon arrival.",
+        description: "Shop premium fashion confidently. Kimi offers Cash on Delivery (COD) across Pakistan. Inspect your custom fits upon arrival.",
         keywords: "cash on delivery Pakistan, COD shopping, secure payment, Kimi payments",
         canonicalUrl: "/cod",
         ogImage: "/og-cod.jpg"
     },
     checkout: {
         title: "Checkout",
-        description: "Complete your order for premium custom-fit clothing. Secure checkout with COD and online payment options. Fast dispatch to all cities in Pakistan.",
+        description: "Complete your order for premium custom-fit clothing. Secure checkout with COD and online payment options. Fast dispatch to all cities.",
         keywords: "checkout, buy clothes Pakistan, secure payment, custom sizing order",
         canonicalUrl: "/checkout",
         ogImage: "/og-checkout.jpg"
     },
     terms: {
         title: "Terms of Service",
-        description: "Kimi's terms of service. Transparent policies for custom sizing orders, shipping, and usage. Designed to protect our valued Pakistani customers.",
+        description: "Kimi's terms of service. Transparent policies for custom sizing orders, shipping, and usage. Protecting our valued Pakistani customers.",
         keywords: "terms of service, legal, custom order terms, Kimi policies",
         canonicalUrl: "/terms",
         ogImage: "/og-terms.jpg"
     },
     privacy: {
         title: "Privacy Policy",
-        description: "Your privacy matters. Learn how Kimi protects your personal data while providing you with the best personalized shopping experience in Pakistan.",
+        description: "Your privacy matters. Learn how Kimi protects your personal data while providing the best personalized shopping experience in Pakistan.",
         keywords: "privacy policy, data protection Pakistan, secure shopping",
         canonicalUrl: "/privacy",
         ogImage: "/og-privacy.jpg"
@@ -101,10 +101,17 @@ const seoConfig = {
     },
     sizeGuide: {
         title: "Size Guide",
-        description: "Not sure about your size? Check our detailed guide or choose Custom Sizing for a tailored fit unique to you. The best fit in Pakistan, guaranteed.",
+        description: "Not sure about your size? Check our guide or choose Custom Sizing for a tailored fit. The best fit in Pakistan, guaranteed.",
         keywords: "size guide, custom sizing Pakistan, how to measure, tailored fit",
         canonicalUrl: "/size-guide",
         ogImage: "/og-size-guide.jpg"
+    },
+    compare: {
+        title: "Compare Products",
+        description: "Compare your favorite Kimi products side-by-side. Analyze features, prices, and styles to make the perfect choice for your custom fit.",
+        keywords: "compare clothing, product comparison, Kimi feature compare, price check",
+        canonicalUrl: "/compare",
+        ogImage: "/favicon.ico"
     },
     search: {
         title: "Search Results",

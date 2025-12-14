@@ -19,9 +19,9 @@ const ContactClient = ()=>{
     });
     const handleSubmit = (e)=>{
         e.preventDefault();
-        const text = `*New Contact Message*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`;
+        const text = `*New Contact Message from kimi.com.pk*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`;
         const encodedText = encodeURIComponent(text);
-        window.open(`https://wa.me/message/YQJES4FOSNDVO1?text=${encodedText}`, '_blank');
+        window.open(`https://wa.me/923329105111?text=${encodedText}`, '_blank');
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "content-page container",
@@ -132,7 +132,7 @@ const ContactClient = ()=>{
                                                 columnNumber: 29
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                                href: "https://wa.me/message/YQJES4FOSNDVO1",
+                                                href: "https://wa.me/923329105111",
                                                 target: "_blank",
                                                 rel: "noopener noreferrer",
                                                 className: "btn btn-primary",

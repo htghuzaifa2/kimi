@@ -21,6 +21,8 @@ const AssistiveTouch = () => {
     const dragStartPos = useRef({ x: 0, y: 0 });
     const dragStartTime = useRef(0);
     const idleTimer = useRef(null);
+    const isInteractingWithMenu = useRef(false);
+    const animationFrame = useRef(null);
 
     // Constants
     const DRAG_THRESHOLD = 5;
@@ -57,17 +59,18 @@ const AssistiveTouch = () => {
     useEffect(() => {
         // Set initial position on client only
         setPosition({ x: window.innerWidth - 70, y: window.innerHeight - 140 });
-        setRadius(window.innerWidth < 768 ? 110 : 140);
+        // Radius matches CSS ring sizes
+        setRadius(window.innerWidth < 480 ? 120 : window.innerWidth < 768 ? 140 : 170);
     }, []);
 
     useEffect(() => {
         resetIdleTimer();
-        window.addEventListener('pointerdown', resetIdleTimer);
-        window.addEventListener('pointermove', resetIdleTimer);
+        // REMOVED: window.addEventListener('pointerdown', resetIdleTimer);
+        // REMOVED: window.addEventListener('pointermove', resetIdleTimer);
         return () => {
             if (idleTimer.current) clearTimeout(idleTimer.current);
-            window.removeEventListener('pointerdown', resetIdleTimer);
-            window.removeEventListener('pointermove', resetIdleTimer);
+            // window.removeEventListener('pointerdown', resetIdleTimer);
+            // window.removeEventListener('pointermove', resetIdleTimer);
             if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
         };
     }, [isOpen, isDragging]);
@@ -75,8 +78,9 @@ const AssistiveTouch = () => {
     // --- Window Resize & Route Change ---
     useEffect(() => {
         const handleResize = () => {
-            const isMobile = window.innerWidth < 768;
-            setRadius(isMobile ? 110 : 140);
+            // Radius matches CSS ring sizes
+            const width = window.innerWidth;
+            setRadius(width < 480 ? 120 : width < 768 ? 140 : 170);
 
             setPosition(prev => ({
                 x: Math.min(prev.x, window.innerWidth - 60),
@@ -173,15 +177,22 @@ const AssistiveTouch = () => {
                 className={`assistive-container ${isOpen ? 'open' : ''} ${isIdle ? 'idle' : ''}`}
                 style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
             >
-                {/* The Ball */}
+                {/* The Ball - Unique 4-dot grid icon */}
                 <div
                     className="assistive-ball"
-                    onPointerDown={handlePointerDown}
-                    onPointerMove={handlePointerMove}
-                    onPointerUp={handlePointerUp}
-                    onPointerCancel={handlePointerUp}
+                    onPointerDown={(e) => { handlePointerDown(e); resetIdleTimer(); }}
+                    onPointerMove={(e) => { handlePointerMove(e); resetIdleTimer(); }}
+                    onPointerUp={(e) => { handlePointerUp(e); resetIdleTimer(); }}
+                    onPointerCancel={(e) => { handlePointerUp(e); resetIdleTimer(); }}
+                    onClick={resetIdleTimer} // Additional safety
                 >
-                    {isOpen ? <X size={24} color="white" /> : <Circle size={16} fill="white" color="white" />}
+                    <div className="assistive-ball-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <X size={20} color="white" strokeWidth={2.5} />
                 </div>
 
                 {/* The Menu Ring - Static (no rotation) */}
