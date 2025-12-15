@@ -309,7 +309,8 @@
         transform: translateX(-50%);
         top: 0;
         /* Attach to top */
-        background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.9);
+        background: rgba(var(--color-bg-rgb, 255, 255, 255), 1);
+        /* Solid initially */
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         padding: 12px 32px 8px;
@@ -321,6 +322,18 @@
         border-top: none;
         z-index: 100;
         font-size: 1.4rem;
+        transition: all 0.3s ease;
+    }
+
+    /* Transparent Logo on Scroll */
+    .navbar.scrolled .logo {
+        background: transparent;
+        box-shadow: none;
+        border-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding-top: 10px;
+        /* Adjust padding if needed when bg is gone */
     }
 
     /* Theme Switcher (Left) */

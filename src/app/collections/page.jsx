@@ -28,7 +28,7 @@ export default function CollectionsPage() {
         { name: 'Men', image: products.find(p => p.category === 'Men')?.image || '/placeholder.jpg', link: '/shop/men' },
         { name: 'Women', image: products.find(p => p.category === 'Women')?.image || '/placeholder.jpg', link: '/shop/women' },
         { name: 'Kids', image: products.find(p => p.category === 'Kids')?.image || '/placeholder.jpg', link: '/shop/kids' },
-        { name: 'Gaming Outfits', image: products.find(p => p.category === 'Gaming Outfits')?.image || '/placeholder.jpg', link: '/shop/gaming-outfits' },
+        { name: 'Gaming Outfits', image: 'https://i.postimg.cc/m27GrVTG/clair-obscur-expedition-33.avif', link: '/shop/gaming-outfits' },
         { name: 'Hoodies', image: products.find(p => p.productType === 'Hoodie')?.image || '/placeholder.jpg', link: '/shop/hoodies' },
         { name: 'Jackets', image: products.find(p => p.productType === 'Jacket')?.image || '/placeholder.jpg', link: '/shop/jackets' },
         { name: 'Ghost of Yotei', image: 'https://i.postimg.cc/HnBsv2nK/ghost-of-yotei.webp', link: '/shop/ghost-of-yotei' },
