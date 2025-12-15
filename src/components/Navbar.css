@@ -278,112 +278,81 @@
 /* ==================== RESPONSIVE - MOBILE & TABLET (Touch Devices) ==================== */
 @media (max-width: 1024px) {
     .navbar {
-        height: 70px; /* Increased height for U-shape dip */
-        background: transparent; /* Main bg handled by container/pseudo */
+        height: 60px;
+        background: transparent !important;
         border-bottom: none;
+        pointer-events: none;
+        /* Let clicks pass through empty space */
+        overflow: visible;
     }
 
     .navbar-container {
         position: relative;
         padding: 0 1rem;
         height: 100%;
-        gap: 0;
-        background: var(--color-bg); /* Fallback */
-        background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--color-border);
-        z-index: 2;
+        background: transparent !important;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: none;
+        pointer-events: auto;
+        /* Enable clicks on elements */
     }
 
-    /* U-Shape Dip */
-    .navbar::after {
-        content: '';
-        position: absolute;
-        bottom: -20px; /* Depth of dip */
-        left: 50%;
-        transform: translateX(-50%);
-        width: 120px;
-        height: 40px;
-        background: inherit; /* Inherit from navbar-container? No, complex. */
-        background: var(--color-bg);
-        border-radius: 0 0 50% 50%;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow matching header */
-        z-index: 1;
-        /* Blur is hard to apply to pseudo sticking out, using solid bg for now or matching navbar style */
-        border: 1px solid var(--color-border);
-        border-top: none;
-        clip-path: ellipse(60% 100% at 50% 0%); /* Smoother U shape */
+    /* Remove U-Shape */
+    .navbar::after,
+    .navbar::before {
+        display: none;
     }
-    /* Since we can't easily do the blur on the dip seamlessly with the header without complex masking, 
-       we'll style the header container normally and add the dip pseudo to it. 
-       But .navbar-container is the one with flex. 
-       Let's simplify: .navbar gets the bg/blur. */
-    
-    .navbar {
-        background: rgba(var(--color-bg-rgb, 255, 255, 255), 1) !important; /* Solid for now to hide U-shape seam, or distinct */
-        border-bottom: 1px solid var(--color-border);
-        overflow: visible;
-    }
-    
-    /* Re-doing the layout approach for U-shape */
+
+    /* Rounded Logo */
     .logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        z-index: 10;
-        top: 25px; /* Push down into the dip */
+        top: 10px;
+        /* Pill/Rounded styling */
+        background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 6px 20px;
+        border-radius: 999px;
+        /* Full rounded pill */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        /* Soft floating shadow */
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        z-index: 100;
+        /* Logo text adjustment */
+        font-size: 1.25rem;
     }
 
-    /* U-Shape Dip specifically */
-    .navbar::before {
-        content: '';
-        position: absolute;
-        top: 100%; /* Bottom of header */
-        left: 50%;
-        transform: translateX(-50%);
-        width: 140px;
-        height: 45px;
-        background: var(--color-bg); /* Match header bg */
-        border-radius: 0 0 50% 50%;
-        border-bottom: 1px solid var(--color-border);
-        border-left: 1px solid var(--color-border);
-        border-right: 1px solid var(--color-border);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        z-index: 0;
-    }
-
-    /* Positioning Controls */
-    .mobile-menu-btn {
-        display: flex !important;
-        position: absolute;
-        right: 1rem;
-        z-index: 5;
-    }
-
-    /* Theme Switcher (Left) */
+    /* Theme Switcher (Left) - Keep as is */
     .nav-actions {
         display: flex;
         position: absolute;
-        left: 0.5rem;
-        z-index: 5;
-    }
-    
-    /* Hide other icons in nav-actions on mobile */
-    .nav-actions > .icon-btn:not(.theme-btn) {
-        display: none;
+        left: 1rem;
+        z-index: 100;
     }
 
-    /* Theme Menu Position - Open to Right */
-    .theme-menu {
-        left: 0;
-        right: auto;
-        top: calc(100% + 12px);
+    /* Hide Hamburger - User requested removal */
+    .mobile-menu-btn {
+        display: none !important;
+    }
+
+    /* Hide other icons in nav-actions on mobile */
+    .nav-actions>.icon-btn:not(.theme-btn) {
+        display: none;
     }
 
     .icon-btn {
         width: 40px;
         height: 40px;
+        /* Make theme switcher button also float/rounded if needed? 
+           For now, standard transparent is fine or maybe a small bg? 
+           User liked "theme switcher as now", so keeping it standard. 
+        */
+        background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.5);
+        backdrop-filter: blur(8px);
+        border-radius: 50%;
     }
 
     .sidebar-menu {

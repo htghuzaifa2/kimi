@@ -177,7 +177,7 @@ const HomeClient = () => {
 
                 <div className="product-grid">
                     {displayProducts.map((product) => (
-                        <div key={product.uniqueKey} className="product-card fade-in">
+                        <div key={product.uniqueKey} className="product-card">
                             <Link href={`/product/${product.slug}`} className="product-image-wrapper">
                                 <img src={product.image} alt={product.name} className="product-image" />
                                 <div className="product-overlay">
