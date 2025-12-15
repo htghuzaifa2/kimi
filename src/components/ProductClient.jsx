@@ -42,17 +42,29 @@ const ProductClient = ({ slug }) => {
     }, [isLightboxOpen]);
 
     // Logic to get 11 related products (Same category first, then random/others)
-    const relatedProducts = React.useMemo(() => {
-        if (!product) return [];
+    const [relatedProducts, setRelatedProducts] = useState([]);
 
-        let related = products.filter(p => p.category === product.category && p.id !== product.id);
+    useEffect(() => {
+        if (!product) return;
 
-        if (related.length < 11) {
-            const others = products.filter(p => p.category !== product.category && p.id !== product.id);
-            related = [...related, ...others];
-        }
+        // Logic to get 10 related products (Same category first, then random/others)
+        const getRelatedProducts = () => {
+            // 1. Get same category products (excluding current)
+            let sameCategory = products.filter(p => p.category === product.category && p.id !== product.id);
+            // Randomize same category
+            sameCategory.sort(() => 0.5 - Math.random());
 
-        return related.slice(0, 11);
+            // 2. Get other products (excluding current)
+            // Note: We filter out those already in sameCategory implicitly by category check
+            let others = products.filter(p => p.category !== product.category && p.id !== product.id);
+            // Randomize others
+            others.sort(() => 0.5 - Math.random());
+
+            // 3. Combine and slice to 10
+            return [...sameCategory, ...others].slice(0, 10);
+        };
+
+        setRelatedProducts(getRelatedProducts());
     }, [product]);
 
     if (!product) {
