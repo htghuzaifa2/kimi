@@ -1,7 +1,9 @@
-export async function GET() {
-    const baseUrl = 'https://huzi.pk';
+export const dynamic = 'force-static';
 
-    const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+export async function GET() {
+  const baseUrl = 'https://huzi.pk';
+
+  const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${baseUrl}/pages-sitemap.xml</loc>
@@ -17,9 +19,9 @@ export async function GET() {
   </sitemap>
 </sitemapindex>`;
 
-    return new Response(sitemapIndex, {
-        headers: {
-            'Content-Type': 'text/xml',
-        },
-    });
+  return new Response(sitemapIndex, {
+    headers: {
+      'Content-Type': 'text/xml',
+    },
+  });
 }

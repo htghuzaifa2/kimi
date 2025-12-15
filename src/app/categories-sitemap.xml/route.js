@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import { categories } from '../../data/products';
 
 export async function GET() {

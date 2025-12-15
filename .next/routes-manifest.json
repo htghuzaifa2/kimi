@@ -77,6 +77,18 @@
       "namedRegex": "^/about(?:/)?$"
     },
     {
+      "page": "/bing-feed.xml",
+      "regex": "^/bing\\-feed\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/bing\\-feed\\.xml(?:/)?$"
+    },
+    {
+      "page": "/categories-sitemap.xml",
+      "regex": "^/categories\\-sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/categories\\-sitemap\\.xml(?:/)?$"
+    },
+    {
       "page": "/checkout",
       "regex": "^/checkout(?:/)?$",
       "routeKeys": {},
@@ -113,10 +125,28 @@
       "namedRegex": "^/faq(?:/)?$"
     },
     {
+      "page": "/google-feed.xml",
+      "regex": "^/google\\-feed\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/google\\-feed\\.xml(?:/)?$"
+    },
+    {
+      "page": "/pages-sitemap.xml",
+      "regex": "^/pages\\-sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pages\\-sitemap\\.xml(?:/)?$"
+    },
+    {
       "page": "/privacy",
       "regex": "^/privacy(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/privacy(?:/)?$"
+    },
+    {
+      "page": "/products-sitemap.xml",
+      "regex": "^/products\\-sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/products\\-sitemap\\.xml(?:/)?$"
     },
     {
       "page": "/returns",
@@ -135,6 +165,12 @@
       "regex": "^/shipping(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/shipping(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
     },
     {
       "page": "/size-guide",
