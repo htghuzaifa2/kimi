@@ -35,18 +35,24 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
     // Use static categories combined with "All", Explicitly defining UI categories
     // Removed "Gaming Outfits", Added "Ghost of Yotei"
-    const categories = useMemo(() => ['All', 'Men', 'Women', 'Kids', 'Ghost of Yotei'], []);
+    // Unified Categories List
+    const categories = useMemo(() => ['All', 'Men', 'Women', 'Kids', 'Gaming Outfits', 'Hoodie', 'Jacket', 'Ghost of Yotei'], []);
 
     // Initialize from Params
     useEffect(() => {
         if (categoryParam) {
             // Format category name
-            const formattedCategory = categoryParam.split('-').map(word =>
-                word.charAt(0).toUpperCase() + word.slice(1)
-            ).join(' ');
-            setActiveCategory(formattedCategory);
+            const paramName = categoryParam.toLowerCase();
 
-            // Should be null unless valid sub-category logic handling is added back
+            // Map slug to category name accurately
+            let targetCategory = 'All';
+            if (paramName === 'gaming-outfits') targetCategory = 'Gaming Outfits';
+            else if (paramName === 'ghost-of-yotei') targetCategory = 'Ghost of Yotei';
+            else if (paramName === 'hoodies') targetCategory = 'Hoodie';
+            else if (paramName === 'jackets') targetCategory = 'Jacket';
+            else targetCategory = categoryParam.charAt(0).toUpperCase() + categoryParam.slice(1);
+
+            setActiveCategory(targetCategory);
             setActiveSubCategory(null);
         } else {
             setActiveCategory('All');
@@ -63,16 +69,14 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
         // 1. Identify active category
         if (activeCategory === 'Ghost of Yotei') {
-            // Special handling for this "Game" as a main category
             result = result.filter(p => p.subCategory === 'Ghost of Yotei');
+        } else if (activeCategory === 'Gaming Outfits') {
+            result = result.filter(p => p.category === 'Gaming Outfits');
+        } else if (activeCategory === 'Hoodie' || activeCategory === 'Jacket') {
+            result = result.filter(p => p.productType === activeCategory);
         } else if (activeCategory !== 'All') {
             // Normal Category Filter (Men, Women, Kids)
             result = result.filter(p => p.category === activeCategory);
-        }
-
-        // Filter by Product Type
-        if (productTypeFilter !== 'All') {
-            result = result.filter(p => p.productType === productTypeFilter);
         }
 
         // Sort
@@ -93,14 +97,16 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
         }
 
         return result;
-    }, [activeCategory, productTypeFilter, sortBy]);
+    }, [activeCategory, sortBy]); // Removed productTypeFilter dep
 
     // Reset to page 1 when filters change
     useEffect(() => {
         if (visiblePages[0] !== 1 || visiblePages.length > 1) {
             setVisiblePages([1]);
         }
-    }, [activeCategory, productTypeFilter, sortBy]);
+    }, [activeCategory, sortBy]);
+
+    // ... (rest is same until return)
 
     // Calculate total pages
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -165,12 +171,12 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
         <div className="shop-container container" ref={containerRef}>
             {/* Category Header (Title Only - Pills Removed) */}
             <div className="category-header">
-                <h1 className="h2 mb-6">{activeCategory}</h1>
+                <h1 className="h2 mb-6">{activeCategory === 'Hoodie' ? 'Hoodies' : activeCategory === 'Jacket' ? 'Jackets' : activeCategory}</h1>
             </div>
 
             <div className="shop-layout-single-col">
-                {/* Top Filter Bar - Sort & Product Type */}
-                <div className="shop-toolbar mb-8" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                {/* Top Filter Bar - Sort Only (Product Type Removed) */}
+                <div className="shop-toolbar mb-8" style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                     <div className="toolbar-group">
                         <label className="toolbar-label">Sort By:</label>
                         <select
@@ -184,22 +190,6 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
                             <option value="price-high-low">Price: High to Low</option>
                         </select>
                     </div>
-
-                    {activeCategory !== 'All' /* Show Product Type Filter if needed, or always? Keeping logical */ && (
-                        <div className="toolbar-group">
-                            <label className="toolbar-label">Product Type:</label>
-                            <select
-                                className="toolbar-select"
-                                value={productTypeFilter}
-                                onChange={(e) => setProductTypeFilter(e.target.value)}
-                            >
-                                <option value="All">All Types</option>
-                                {productTypes.map(type => (
-                                    <option key={type} value={type}>{type}s</option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
                 </div>
 
                 {/* Product Grid & Pagination */}
