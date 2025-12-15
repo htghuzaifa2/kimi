@@ -22,7 +22,7 @@ ${product.otherImages && product.otherImages.length > 0 ? `<g:additional_image_l
 <g:availability>in stock</g:availability>
 <g:price>${product.price.toFixed(2)} PKR</g:price>
 <g:condition>new</g:condition>
-<g:google_product_category>Apparel & Accessories > Clothing</g:google_product_category>
+<g:google_product_category><![CDATA[Apparel & Accessories > Clothing]]></g:google_product_category>
 </item>`).join('')}
 </channel>
 </rss>`;

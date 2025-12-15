@@ -22,7 +22,7 @@ ${products.map(product => `
 <g:price>${product.price.toFixed(2)} PKR</g:price>
 <g:condition>new</g:condition>
 <g:brand>Kimi</g:brand>
-<g:product_type>${product.category} &gt; ${product.subCategory || product.productType}</g:product_type>
+<g:product_type><![CDATA[${product.category} > ${product.subCategory || product.productType}]]></g:product_type>
 </item>`).join('')}
 </channel>
 </rss>`;
