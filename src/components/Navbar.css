@@ -282,7 +282,6 @@
         background: transparent !important;
         border-bottom: none;
         pointer-events: none;
-        /* Let clicks pass through empty space */
         overflow: visible;
     }
 
@@ -295,45 +294,54 @@
         -webkit-backdrop-filter: none;
         border-bottom: none;
         pointer-events: auto;
-        /* Enable clicks on elements */
     }
 
-    /* Remove U-Shape */
+    /* Remove U-Shape pseudos */
     .navbar::after,
     .navbar::before {
         display: none;
     }
 
-    /* Rounded Logo */
+    /* Rounded Logo - Hanging Tab Style */
     .logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 10px;
-        /* Pill/Rounded styling */
-        background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.8);
+        top: 0;
+        /* Attach to top */
+        background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.9);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        padding: 6px 20px;
-        border-radius: 999px;
-        /* Full rounded pill */
+        padding: 12px 32px 8px;
+        /* More padding top/sides */
+        border-radius: 0 0 24px 24px;
+        /* U-shape / Tab */
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        /* Soft floating shadow */
         border: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: none;
         z-index: 100;
-        /* Logo text adjustment */
-        font-size: 1.25rem;
+        font-size: 1.4rem;
     }
 
-    /* Theme Switcher (Left) - Keep as is */
+    /* Theme Switcher (Left) */
     .nav-actions {
         display: flex;
         position: absolute;
         left: 1rem;
         z-index: 100;
+        top: 10px;
+        /* Align with header height visually */
     }
 
-    /* Hide Hamburger - User requested removal */
+    /* Theme Menu Position - Open Rightwards */
+    .theme-menu {
+        left: 0;
+        right: auto;
+        top: calc(100% + 8px);
+        min-width: 140px;
+    }
+
+    /* Hide Hamburger */
     .mobile-menu-btn {
         display: none !important;
     }

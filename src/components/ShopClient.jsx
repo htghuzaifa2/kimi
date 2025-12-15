@@ -219,7 +219,7 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
                     <div className="product-grid">
                         {visibleProducts.map((product) => (
-                            <div key={product.id} className="product-card fade-in">
+                            <div key={product.id} className="product-card">
                                 <Link href={`/product/${product.slug}`} className="product-image-wrapper">
                                     <img src={product.image} alt={product.name} className="product-image" />
                                     <div className="product-overlay">
