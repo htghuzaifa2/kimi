@@ -302,55 +302,56 @@
         display: none;
     }
 
-    /* Rounded Logo - Hanging Tab Style */
+    /* Simple Logo (Reverted) */
     .logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 0;
-        /* Attach to top */
-        background: rgba(var(--color-bg-rgb, 255, 255, 255), 1);
-        /* Solid initially */
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 12px 32px 8px;
-        /* More padding top/sides */
-        border-radius: 0 0 24px 24px;
-        /* U-shape / Tab */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        border-top: none;
-        z-index: 100;
-        font-size: 1.4rem;
-        transition: all 0.3s ease;
-    }
-
-    /* Transparent Logo on Scroll */
-    .navbar.scrolled .logo {
+        top: 12px;
         background: transparent;
-        box-shadow: none;
-        border-color: transparent;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
-        padding-top: 10px;
-        /* Adjust padding if needed when bg is gone */
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        z-index: 100;
+        font-size: 1.5rem;
     }
 
-    /* Theme Switcher (Left) */
+    /* Transparent Logo on Scroll - No change needed */
+    .navbar.scrolled .logo {
+        background: transparent;
+        padding-top: 0;
+    }
+
+    /* Nav Actions - Full Width Row */
     .nav-actions {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         position: absolute;
-        left: 1rem;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        /* Match header height */
+        padding: 0 1rem;
         z-index: 100;
-        top: 10px;
-        /* Align with header height visually */
+        pointer-events: none;
+        /* Allow clicks through empty space */
     }
 
-    /* Theme Menu Position - Open Rightwards */
+    /* Theme Switcher & Search - Clickable */
+    .nav-actions>* {
+        pointer-events: auto;
+    }
+
+    /* Theme Menu Position */
     .theme-menu {
         left: 0;
         right: auto;
-        top: calc(100% + 8px);
+        top: 100%;
         min-width: 140px;
     }
 
@@ -359,18 +360,20 @@
         display: none !important;
     }
 
-    /* Hide other icons in nav-actions on mobile */
+    /* Show Search Icon (Right), Hide Cart */
     .nav-actions>.icon-btn:not(.theme-btn) {
-        display: none;
+        display: flex;
+        /* Show Search */
+    }
+
+    .nav-actions .cart-btn {
+        display: none !important;
+        /* Force hide cart */
     }
 
     .icon-btn {
         width: 40px;
         height: 40px;
-        /* Make theme switcher button also float/rounded if needed? 
-           For now, standard transparent is fine or maybe a small bg? 
-           User liked "theme switcher as now", so keeping it standard. 
-        */
         background: rgba(var(--color-bg-rgb, 255, 255, 255), 0.5);
         backdrop-filter: blur(8px);
         border-radius: 50%;

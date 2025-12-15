@@ -27,7 +27,7 @@ export default function CollectionsPage() {
     const categoriesData = [
         { name: 'Men', image: 'https://i.postimg.cc/Vvr0tpD7/men.webp', link: '/shop/men' },
         { name: 'Women', image: products.find(p => p.category === 'Women')?.image || '/placeholder.jpg', link: '/shop/women' },
-        { name: 'Kids', image: products.find(p => p.category === 'Kids')?.image || '/placeholder.jpg', link: '/shop/kids' },
+        { name: 'Kids', image: 'https://i.postimg.cc/Gtgny3XN/kids-Kimi.jpg', link: '/shop/kids' },
         { name: 'Gaming Outfits', image: 'https://i.postimg.cc/m27GrVTG/clair-obscur-expedition-33.avif', link: '/shop/gaming-outfits' },
         { name: 'Hoodies', image: products.find(p => p.productType === 'Hoodie')?.image || '/placeholder.jpg', link: '/shop/hoodies' },
         { name: 'Jackets', image: products.find(p => p.productType === 'Jacket')?.image || '/placeholder.jpg', link: '/shop/jackets' },
