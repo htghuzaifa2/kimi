@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Search as SearchIcon, X } from 'lucide-react';
 import { products } from '../data/products';
-import '../../styles/Shop.css'; // Import global shop styles for product cards
+import '../styles/Shop.css'; // Import global shop styles for product cards
 
 // We need a wrapper component for Suspense too if we were to export it directly, but let's do the logic here.
 const SearchClient = () => {
