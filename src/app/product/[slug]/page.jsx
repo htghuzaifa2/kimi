@@ -19,27 +19,37 @@ export async function generateMetadata({ params }) {
         };
     }
 
+    // Handle new schema vs old schema
+    const title = product.title || product.name;
+    const imageUrl = product.images && product.images.length > 0
+        ? (typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url)
+        : product.image;
+
+    const category = product.categories && product.categories.length > 0
+        ? product.categories[0]
+        : product.category || 'Apparel';
+
     // Generate a strong, sales-focused description limited to 155 chars
-    const productDesc = (product.longDescription || product.description || "").substring(0, 80).trim();
+    const productDesc = (product.shortDescription || product.longDescription || product.description || "").substring(0, 80).trim();
     const description = `${productDesc}... Shop this custom style at Kimi. Premium fit & quality in Pakistan.`.substring(0, 155);
 
     return {
-        title: product.name,
+        title: title,
         description: description, // Optimized for CTR and Keywords
-        keywords: `${product.name}, custom sizing, Kimi clothing, Pakistan fashion, buy ${product.category.toLowerCase()} online, tailored fit`,
+        keywords: `${title}, custom sizing, Kimi clothing, Pakistan fashion, buy ${category.toLowerCase()} online, tailored fit`,
         alternates: {
             canonical: `/product/${product.slug}`,
         },
         openGraph: {
-            title: product.name,
+            title: title,
             description: description,
             url: `/product/${product.slug}`,
             images: [
                 {
-                    url: product.image,
+                    url: imageUrl,
                     width: 800,
                     height: 600,
-                    alt: product.name,
+                    alt: title,
                 }
             ],
             type: 'website',
@@ -47,9 +57,9 @@ export async function generateMetadata({ params }) {
         },
         twitter: {
             card: 'summary_large_image',
-            title: product.name,
+            title: title,
             description: description,
-            images: [product.image],
+            images: [imageUrl],
         }
     };
 }

@@ -49,14 +49,29 @@ const ProductClient = ({ slug }) => {
 
         // Logic to get 10 related products (Same category first, then random/others)
         const getRelatedProducts = () => {
+            const getCategories = (p) => {
+                if (p.categories) return p.categories;
+                if (p.category) return [p.category];
+                return [];
+            };
+            
+            const currentCategories = getCategories(product);
+
             // 1. Get same category products (excluding current)
-            let sameCategory = products.filter(p => p.category === product.category && p.id !== product.id);
+            let sameCategory = products.filter(p => {
+                if (p.id === product.id) return false;
+                const pCats = getCategories(p);
+                // Check if they share ANY category
+                return pCats.some(c => currentCategories.includes(c));
+            });
+
             // Randomize same category
             sameCategory.sort(() => 0.5 - Math.random());
 
-            // 2. Get other products (excluding current)
-            // Note: We filter out those already in sameCategory implicitly by category check
-            let others = products.filter(p => p.category !== product.category && p.id !== product.id);
+            // 2. Get other products (excluding current and already found)
+            const sameIds = new Set(sameCategory.map(p => p.id));
+            let others = products.filter(p => p.id !== product.id && !sameIds.has(p.id));
+            
             // Randomize others
             others.sort(() => 0.5 - Math.random());
 
@@ -127,8 +142,8 @@ const ProductClient = ({ slug }) => {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: product.name,
-                    text: `Check out ${product.name} on Kimi!`,
+                    title: product.title || product.name,
+                    text: `Check out ${product.title || product.name} on Kimi!`,
                     url: window.location.href,
                 });
             } catch (err) {
@@ -143,10 +158,26 @@ const ProductClient = ({ slug }) => {
         setActiveAccordion(activeAccordion === section ? null : section);
     };
 
+    // Handle new images array of objects vs old array of strings/single image string
+    const getImageUrl = (img) => {
+        if (!img) return '';
+        if (typeof img === 'string') return img;
+        return img.url;
+    };
 
+    const getImgAlt = (img, idx) => {
+        if (typeof img === 'object' && img.alt) return img.alt;
+        return `${product.title || product.name} - View ${idx + 1}`;
+    };
 
-    const currentImage = product.images ? product.images[selectedImage] : product.image;
+    const currentImageSrc = product.images && product.images[selectedImage] 
+        ? getImageUrl(product.images[selectedImage])
+        : product.image;
+        
     const hasMultipleImages = product.images && product.images.length > 1;
+
+    // Helper to get formatted ID
+    const displayId = product.id;
 
     return (
         <div className="product-page container">
@@ -160,8 +191,8 @@ const ProductClient = ({ slug }) => {
                         onClick={openLightbox}
                     >
                         <img
-                            src={currentImage}
-                            alt={product.name}
+                            src={currentImageSrc}
+                            alt={product.title || product.name}
                             className="main-image"
                             style={{
                                 transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
@@ -193,7 +224,7 @@ const ProductClient = ({ slug }) => {
                                     className={`thumbnail-card ${selectedImage === index ? 'active' : ''}`}
                                     onClick={() => setSelectedImage(index)}
                                 >
-                                    <img src={img} alt={`View ${index + 1}`} />
+                                    <img src={getImageUrl(img)} alt={getImgAlt(img, index)} />
                                 </button>
                             ))}
                         </div>
@@ -202,13 +233,13 @@ const ProductClient = ({ slug }) => {
 
                 <div className="product-details slide-up">
                     <div className="product-header">
-                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text-light)', marginBottom: '8px', display: 'block' }}>Product ID: {product.id}</span>
-                        <h1 className="product-title-large">{product.name}</h1>
-                        <p className="product-price-large">PKR {product.price.toLocaleString()}</p>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text-light)', marginBottom: '8px', display: 'block' }}>Product ID: {displayId}</span>
+                        <h1 className="product-title-large">{product.title || product.name}</h1>
+                        <p className="product-price-large">{product.currency || 'PKR'} {product.price.toLocaleString()}</p>
                     </div>
 
                     <div className="product-short-desc">
-                        <p>{product.description.split('.')[0]}.</p>
+                        <p>{product.shortDescription || (product.description ? product.description.split('.')[0] + '.' : '')}</p>
                     </div>
 
                     <div className="product-actions">
@@ -247,7 +278,7 @@ const ProductClient = ({ slug }) => {
                                 <ChevronRight size={16} className={`accordion-icon ${activeAccordion === 'description' ? 'rotate' : ''}`} />
                             </button>
                             <div className={`accordion-content ${activeAccordion === 'description' ? 'open' : ''}`}>
-                                <p>{product.description}</p>
+                                <p style={{ whiteSpace: 'pre-line' }}>{product.description}</p>
                             </div>
                         </div>
 
@@ -262,17 +293,37 @@ const ProductClient = ({ slug }) => {
                             <div className={`accordion-content ${activeAccordion === 'features' ? 'open' : ''}`}>
                                 <div className="product-features-list">
                                     <div className="feature-row">
-                                        <span className="feature-label">Category</span>
-                                        <span className="feature-value">{product.category}</span>
+                                        <span className="feature-label">Categories</span>
+                                        <span className="feature-value">{product.categories ? product.categories.join(', ') : product.category}</span>
                                     </div>
-                                    <div className="feature-row">
-                                        <span className="feature-label">Warranty</span>
-                                        <span className="feature-value">1 Year Official</span>
-                                    </div>
-                                    <div className="feature-row">
-                                        <span className="feature-label">Shipping</span>
-                                        <span className="feature-value">Free over PKR 5,000</span>
-                                    </div>
+                                    
+                                    {product.specs ? (
+                                        Object.entries(product.specs).map(([key, value]) => (
+                                            <div className="feature-row" key={key}>
+                                                <span className="feature-label" style={{ textTransform: 'capitalize' }}>{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                                                <span className="feature-value">{value.toString()}</span>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <>
+                                            {/* Fallback for old data without specs */}
+                                            <div className="feature-row">
+                                                <span className="feature-label">Warranty</span>
+                                                <span className="feature-value">1 Year Official</span>
+                                            </div>
+                                            <div className="feature-row">
+                                                <span className="feature-label">Shipping</span>
+                                                <span className="feature-value">Free over PKR 5,000</span>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {product.notes && (
+                                         <div className="feature-row" style={{ marginTop: '10px', fontStyle: 'italic' }}>
+                                            <span className="feature-label">Note</span>
+                                            <span className="feature-value">{product.notes}</span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -299,8 +350,8 @@ const ProductClient = ({ slug }) => {
                             onDoubleClick={handleDoubleTap}
                         >
                             <img
-                                src={currentImage}
-                                alt={product.name}
+                                src={currentImageSrc}
+                                alt={product.title || product.name}
                                 className="lightbox-image"
                                 style={{ transform: `scale(${lightboxZoom})` }}
                             />
@@ -318,7 +369,7 @@ const ProductClient = ({ slug }) => {
                                 className={`thumbnail-card ${selectedImage === index ? 'active' : ''}`}
                                 onClick={() => setSelectedImage(index)}
                             >
-                                <img src={img} alt={`View ${index + 1}`} />
+                                <img src={getImageUrl(img)} alt={getImgAlt(img, index)} />
                             </button>
                         ))}
                     </div>
@@ -332,12 +383,16 @@ const ProductClient = ({ slug }) => {
                         {relatedProducts.map((rp) => (
                             <div key={rp.id} className="product-card">
                                 <Link href={`/product/${rp.slug}`} className="product-image-wrapper">
-                                    <img src={rp.image} alt={rp.name} className="product-image" />
+                                    <img 
+                                        src={rp.images ? getImageUrl(rp.images[0]) : rp.image} 
+                                        alt={rp.title || rp.name} 
+                                        className="product-image" 
+                                    />
                                 </Link>
                                 <div className="product-info">
-                                    <Link href={`/product/${rp.slug}`} className="product-title">{rp.name}</Link>
+                                    <Link href={`/product/${rp.slug}`} className="product-title">{rp.title || rp.name}</Link>
                                     <div className="product-meta">
-                                        <span className="product-price">PKR {rp.price.toLocaleString()}</span>
+                                        <span className="product-price">{rp.currency || 'PKR'} {rp.price.toLocaleString()}</span>
                                     </div>
                                 </div>
                             </div>

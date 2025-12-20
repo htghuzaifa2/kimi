@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import { products } from '../data/products';
+import { shuffleArray } from '../utils/shuffle';
 // import '../pages/Home.css'; // Moved to layout.jsx
 
 const HomeClient = () => {
@@ -33,7 +34,7 @@ const HomeClient = () => {
         if (!products || !Array.isArray(products)) return;
 
         // Shuffle once on init
-        const shuffled = [...products].sort(() => 0.5 - Math.random());
+        const shuffled = shuffleArray(products);
 
         // Add unique key just in case, but maintain 1-to-1 mapping
         const prepareProducts = shuffled.map(p => ({
@@ -130,15 +131,15 @@ const HomeClient = () => {
     }, [loadMore, hasMore]); // Add hasMore dependency to re-observe if it reappears
 
     const mainCategories = [
-        { id: 'men', name: 'Men', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/Men' },
-        { id: 'women', name: 'Women', image: 'https://i.postimg.cc/g2YnW02T/Ghost-of-Yotei-Pink-Hoodie.webp', link: '/shop/Women' },
-        { id: 'kids', name: 'Kids', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/Kids' },
-        { id: 'hoodies', name: 'Hoodies', image: 'https://i.postimg.cc/g2YnW02T/Ghost-of-Yotei-Pink-Hoodie.webp', link: '/shop/Hoodies' },
-        { id: 'jackets', name: 'Jackets', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/Jackets' }
+        { id: 'men', name: 'Men', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/men' },
+        { id: 'women', name: 'Women', image: 'https://i.postimg.cc/g2YnW02T/Ghost-of-Yotei-Pink-Hoodie.webp', link: '/shop/women' },
+        { id: 'kids', name: 'Kids', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/kids' },
+        { id: 'hoodies', name: 'Hoodies', image: 'https://i.postimg.cc/tJfM9bRM/Hoodie-kimi.jpg', link: '/shop/hoodies' },
+        { id: 'jackets', name: 'Jackets', image: 'https://i.postimg.cc/zfvPmT53/jackets-Kimi.webp', link: '/shop/jackets' }
     ];
 
     const gamingCollections = [
-        { id: 'ghost-of-yotei', name: 'Ghost of Yotei', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/Gaming%20Outfits/Ghost%20of%20Yotei' }
+        { id: 'ghost-of-yotei', name: 'Ghost of Yotei', image: 'https://i.postimg.cc/prXDrB2s/premium-grey-hoodie-atsu-wolf.webp', link: '/shop/gaming-outfits/ghost-of-yotei' }
     ];
 
     if (!products || !Array.isArray(products)) {
@@ -154,7 +155,7 @@ const HomeClient = () => {
                     <p className="hero-subtitle">Pakistan's premier fashion destination. Authentic style, tailored for you.</p>
                     <div className="hero-actions">
                         <Link href="/collections" className="btn btn-primary">Shop Collection</Link>
-                        <button className="btn btn-outline">View Lookbook</button>
+                        <Link href="/lookbook" className="btn btn-outline">View Lookbook</Link>
                     </div>
                 </div>
             </section>
@@ -179,7 +180,12 @@ const HomeClient = () => {
                     {displayProducts.map((product) => (
                         <div key={product.uniqueKey} className="product-card">
                             <Link href={`/product/${product.slug}`} className="product-image-wrapper">
-                                <img src={product.image} alt={product.name} className="product-image" />
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="product-image"
+                                    style={{ objectFit: 'contain', background: '#f0f0f0' }}
+                                />
                                 <div className="product-overlay">
                                     <button className="btn btn-secondary quick-view-btn">View Details</button>
                                 </div>

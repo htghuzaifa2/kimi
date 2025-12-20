@@ -15,7 +15,8 @@ export async function GET() {
         '/terms',
         '/size-guide',
         '/cod',
-        '/compare'
+        '/compare',
+        '/lookbook'
     ];
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

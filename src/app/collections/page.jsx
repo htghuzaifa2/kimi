@@ -29,8 +29,8 @@ export default function CollectionsPage() {
         { name: 'Women', image: 'https://i.postimg.cc/pXKgvZHk/women-Kimi.jpg', link: '/shop/women' },
         { name: 'Kids', image: 'https://i.postimg.cc/Gtgny3XN/kids-Kimi.jpg', link: '/shop/kids' },
         { name: 'Gaming Outfits', image: 'https://i.postimg.cc/m27GrVTG/clair-obscur-expedition-33.avif', link: '/shop/gaming-outfits' },
-        { name: 'Hoodies', image: products.find(p => p.productType === 'Hoodie')?.image || '/placeholder.jpg', link: '/shop/hoodies' },
-        { name: 'Jackets', image: products.find(p => p.productType === 'Jacket')?.image || '/placeholder.jpg', link: '/shop/jackets' },
+        { name: 'Hoodies', image: 'https://i.postimg.cc/tJfM9bRM/Hoodie-kimi.jpg', link: '/shop/hoodies' },
+        { name: 'Jackets', image: 'https://i.postimg.cc/zfvPmT53/jackets-Kimi.webp', link: '/shop/jackets' },
         { name: 'Ghost of Yotei', image: 'https://i.postimg.cc/HnBsv2nK/ghost-of-yotei.webp', link: '/shop/ghost-of-yotei' },
     ];
 

@@ -102,6 +102,23 @@ body {
   /* Prevent horizontal scroll */
 }
 
+/* Products Showcase Page - Hide Layout Elements */
+body.products-showcase-active .navbar,
+body.products-showcase-active nav,
+body.products-showcase-active header,
+body.products-showcase-active footer,
+body.products-showcase-active .assistive-touch,
+body.products-showcase-active .assistive-container,
+body.products-showcase-active .assistive-overlay {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.products-showcase-active {
+  overflow: hidden !important;
+}
+
 /* Selection Color */
 ::selection {
   background-color: var(--color-primary);

@@ -35,6 +35,7 @@ const Footer = () => {
                             <li><Link href="/shop?category=Men">Men</Link></li>
                             <li><Link href="/shop?category=Women">Women</Link></li>
                             <li><Link href="/collections">Collections</Link></li>
+                            <li><Link href="/lookbook">Lookbook</Link></li>
                         </ul>
                     </div>
 
@@ -42,10 +43,12 @@ const Footer = () => {
                     <div className="footer-col">
                         <h4 className="footer-heading">Support</h4>
                         <ul className="footer-links">
+                            <li><Link href="/about">About Us</Link></li>
                             <li><Link href="/contact">Contact Us</Link></li>
                             <li><Link href="/shipping">Shipping Policy</Link></li>
                             <li><Link href="/returns">Returns & Exchange</Link></li>
                             <li><Link href="/faq">FAQs</Link></li>
+                            <li><Link href="/cod">Cash on Delivery</Link></li>
                             <li><Link href="/size-guide">Size Guide</Link></li>
                             <li><Link href="/compare">Compare Products</Link></li>
                         </ul>
