@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext';
 import { useCompare } from '../context/CompareContext';
 import { products } from '../data/products';
 import { ShoppingBag, Maximize2, X, ChevronLeft, ChevronRight, Share2, Copy, Check, Scale } from 'lucide-react';
+import { ProductSkeleton, RelatedProductsSkeleton } from './Skeletons';
 // import '../pages/Product.css';
 
 const ProductClient = ({ slug }) => {
@@ -54,7 +55,7 @@ const ProductClient = ({ slug }) => {
                 if (p.category) return [p.category];
                 return [];
             };
-            
+
             const currentCategories = getCategories(product);
 
             // 1. Get same category products (excluding current)
@@ -71,7 +72,7 @@ const ProductClient = ({ slug }) => {
             // 2. Get other products (excluding current and already found)
             const sameIds = new Set(sameCategory.map(p => p.id));
             let others = products.filter(p => p.id !== product.id && !sameIds.has(p.id));
-            
+
             // Randomize others
             others.sort(() => 0.5 - Math.random());
 
@@ -83,11 +84,7 @@ const ProductClient = ({ slug }) => {
     }, [product]);
 
     if (!product) {
-        return (
-            <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
-                Product not found
-            </div>
-        );
+        return <ProductSkeleton />;
     }
 
     const handleMouseMove = (e) => {
@@ -170,10 +167,10 @@ const ProductClient = ({ slug }) => {
         return `${product.title || product.name} - View ${idx + 1}`;
     };
 
-    const currentImageSrc = product.images && product.images[selectedImage] 
+    const currentImageSrc = product.images && product.images[selectedImage]
         ? getImageUrl(product.images[selectedImage])
         : product.image;
-        
+
     const hasMultipleImages = product.images && product.images.length > 1;
 
     // Helper to get formatted ID
@@ -296,7 +293,7 @@ const ProductClient = ({ slug }) => {
                                         <span className="feature-label">Categories</span>
                                         <span className="feature-value">{product.categories ? product.categories.join(', ') : product.category}</span>
                                     </div>
-                                    
+
                                     {product.specs ? (
                                         Object.entries(product.specs).map(([key, value]) => (
                                             <div className="feature-row" key={key}>
@@ -319,7 +316,7 @@ const ProductClient = ({ slug }) => {
                                     )}
 
                                     {product.notes && (
-                                         <div className="feature-row" style={{ marginTop: '10px', fontStyle: 'italic' }}>
+                                        <div className="feature-row" style={{ marginTop: '10px', fontStyle: 'italic' }}>
                                             <span className="feature-label">Note</span>
                                             <span className="feature-value">{product.notes}</span>
                                         </div>
@@ -383,10 +380,10 @@ const ProductClient = ({ slug }) => {
                         {relatedProducts.map((rp) => (
                             <div key={rp.id} className="product-card">
                                 <Link href={`/product/${rp.slug}`} className="product-image-wrapper">
-                                    <img 
-                                        src={rp.images ? getImageUrl(rp.images[0]) : rp.image} 
-                                        alt={rp.title || rp.name} 
-                                        className="product-image" 
+                                    <img
+                                        src={rp.images ? getImageUrl(rp.images[0]) : rp.image}
+                                        alt={rp.title || rp.name}
+                                        className="product-image"
                                     />
                                 </Link>
                                 <div className="product-info">

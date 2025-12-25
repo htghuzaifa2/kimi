@@ -47,6 +47,19 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
+/* Skeleton Loading Animation */
+@keyframes skeleton-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
 [data-theme="dark"] {
   --color-bg: #121212;
   --color-bg-secondary: #1e1e1e;

@@ -6,6 +6,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { products, gamingSubCategories, productTypes, categories as staticCategories } from '../data/products';
 import { useCompare } from '../context/CompareContext';
 import { Filter, Scale } from 'lucide-react';
+import { ShopSkeleton } from './Skeletons';
 
 const ShopClient = ({ categoryParam, subCategoryParam }) => {
     const { addToCompare, removeFromCompare, isInCompare } = useCompare();
@@ -22,6 +23,7 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
     const [activeSubCategory, setActiveSubCategory] = useState(null);
     const [productTypeFilter, setProductTypeFilter] = useState('All');
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+    const [isInitialLoad, setIsInitialLoad] = useState(true); // For skeleton loading
 
     // Windowed Pagination State
     const ITEMS_PER_PAGE = 24;
@@ -61,6 +63,7 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
         setVisiblePages([1]);
         setProductTypeFilter('All');
+        setIsInitialLoad(false); // Mark initial load as complete
     }, [categoryParam, subCategoryParam]);
 
     // Filter & Sort Logic
@@ -166,6 +169,11 @@ const ShopClient = ({ categoryParam, subCategoryParam }) => {
 
     const minPage = Math.min(...visiblePages);
     const maxPage = Math.max(...visiblePages);
+
+    // Show skeleton while loading
+    if (isInitialLoad) {
+        return <ShopSkeleton />;
+    }
 
     return (
         <div className="shop-container container" ref={containerRef}>
