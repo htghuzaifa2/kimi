@@ -15,6 +15,10 @@ export async function generateStaticParams() {
         params.push({ slug: [catSlug] });
     });
 
+    // Product type routes (hoodies, jackets, etc.)
+    params.push({ slug: ['hoodies'] });
+    params.push({ slug: ['jackets'] });
+
     // Gaming subcategory routes
     gamingSubCategories.forEach(sub => {
         const subSlug = sub.toLowerCase().replace(/\s+/g, '-');
